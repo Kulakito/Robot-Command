@@ -21,9 +21,6 @@ public class CommandExecuter : MonoBehaviour
 
     public void ExecuteCommands()
     {
-        _inputField.interactable = false;
-        _executeButton.interactable = false;
-
         _commandQueue.Clear();
 
         string[] lines = _inputField.text.Split(new[] { '\n', ';' }, StringSplitOptions.RemoveEmptyEntries);
@@ -33,8 +30,7 @@ public class CommandExecuter : MonoBehaviour
             try
             {
                 IEnumerator coroutine = ParseCommand(line.Trim());
-                if (coroutine != null)
-                    _commandQueue.Enqueue(coroutine);
+                if (coroutine != null) _commandQueue.Enqueue(coroutine);
             }
             catch (Exception e)
             {
@@ -43,6 +39,12 @@ public class CommandExecuter : MonoBehaviour
         }
 
         StartCoroutine(RunCommandQueue());
+
+        if (_commandQueue.Count > 0)
+        {
+            _inputField.interactable = false;
+            _executeButton.interactable = false;
+        }
     }
 
     private IEnumerator RunCommandQueue()
