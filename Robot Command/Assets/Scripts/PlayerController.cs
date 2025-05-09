@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _cellPassingDuration = 0.5f;
-    [SerializeField] private float rotationDuration = 0.5f;
+    [SerializeField] private float _rotationDuration = 0.5f;
+
+    [SerializeField] private float _cellsDistance;
 
     public IEnumerator MoveForwardCoroutine(string argument)
     {
@@ -13,9 +15,9 @@ public class PlayerController : MonoBehaviour
             throw new FormatException("Аргумент не является числом.");
 
         Vector3 start = transform.position;
-        Vector3 end = start + transform.forward * steps;
+        Vector3 end = start + transform.forward * steps * _cellsDistance;
         float elapsed = 0f;
-        float duration = _cellPassingDuration * steps;
+        float duration = _cellPassingDuration * steps * _cellsDistance;
 
         while (elapsed < duration)
         {
@@ -34,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
         float angle = 90f * steps * (isRight ? 1 : -1);
         float rotated = 0f;
-        float rotationSpeed = 90 / rotationDuration;
+        float rotationSpeed = 90 / _rotationDuration;
 
         while (Mathf.Abs(rotated) < Mathf.Abs(angle))
         {

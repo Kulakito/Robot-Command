@@ -38,13 +38,13 @@ public class CommandExecuter : MonoBehaviour
             }
         }
 
-        StartCoroutine(RunCommandQueue());
-
         if (_commandQueue.Count > 0)
         {
             _inputField.interactable = false;
             _executeButton.interactable = false;
         }
+
+        StartCoroutine(RunCommandQueue());  
     }
 
     private IEnumerator RunCommandQueue()
