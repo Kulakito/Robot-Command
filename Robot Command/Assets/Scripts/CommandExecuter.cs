@@ -87,5 +87,6 @@ public class CommandExecuter : MonoBehaviour
 
         _player.transform.position = Vector3.zero;
         _player.transform.rotation = Quaternion.identity;
+        _player.StopAllCoroutines();
     }
 }
