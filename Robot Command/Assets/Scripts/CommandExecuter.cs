@@ -14,6 +14,8 @@ public class CommandExecuter : MonoBehaviour
 
     private PlayerController _player;
 
+    public event Action OnLevelReset;
+
     private void Start()
     {
         _player = FindFirstObjectByType<PlayerController>();
@@ -71,6 +73,7 @@ public class CommandExecuter : MonoBehaviour
             "Forward" => _player.MoveForwardCoroutine(argument),
             "TurnLeft" => _player.TurnCoroutine(argument, false),
             "TurnRight" => _player.TurnCoroutine(argument, true),
+            "PickUp" => _player.PickUpCoroutine(),
             _ => throw new KeyNotFoundException($"Команда {commandName} не найдена.")
         };
     }
@@ -79,6 +82,8 @@ public class CommandExecuter : MonoBehaviour
     {
         _inputField.interactable = true;
         _executeButton.interactable = true;
+
+        OnLevelReset?.Invoke();
 
         _player.transform.position = Vector3.zero;
         _player.transform.rotation = Quaternion.identity;

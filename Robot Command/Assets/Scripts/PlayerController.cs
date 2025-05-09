@@ -9,6 +9,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float _cellsDistance;
 
+    private Inventory _inventory;
+
+    private void Start()
+    {
+        _inventory = FindFirstObjectByType<Inventory>();
+    }
+
     public IEnumerator MoveForwardCoroutine(string argument)
     {
         if (!int.TryParse(argument, out int steps))
@@ -49,6 +56,22 @@ public class PlayerController : MonoBehaviour
             rotated += delta;
 
             yield return null;
+        }
+    }
+
+    public IEnumerator PickUpCoroutine()
+    {
+        yield return null;
+
+        float radius = _cellsDistance / 2;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
+
+        foreach (var collider in colliders)
+        {
+            if (collider.TryGetComponent(out GameItem gameItem))
+            {
+                _inventory.AddItem(gameItem);
+            }
         }
     }
 }

@@ -109,7 +109,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cellPassingDuration: 0.5
-  rotationDuration: 0.5
+  _rotationDuration: 0.5
+  _cellsDistance: 2
 --- !u!136 &1059924307603194835
 CapsuleCollider:
   m_ObjectHideFlags: 0
