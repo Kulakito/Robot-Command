@@ -3,12 +3,11 @@ using System.Collections;
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class CommandExecuter : MonoBehaviour
 {
     [SerializeField] protected TMP_InputField _inputField;
-    [SerializeField] protected Button _executeButton;
+    [SerializeField] protected UnityEngine.UI.Button _executeButton;
 
     protected Queue<IEnumerator> _commandQueue = new Queue<IEnumerator>();
 
@@ -37,7 +36,7 @@ public abstract class CommandExecuter : MonoBehaviour
         if (_commandQueue.Count > 0)
         {
             _inputField.interactable = false;
-            _executeButton = false;
+            _executeButton.interactable = false;
         }
 
         StartCoroutine(RunCommandQueue());  

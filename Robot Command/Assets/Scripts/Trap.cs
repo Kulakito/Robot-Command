@@ -11,14 +11,14 @@ public class Trap : Interactable
 
     private bool _startOpenState;
 
-    private CommandExecuter _executer;
+    private LevelCommandExecuter _executer;
 
     private void Start()
     {
         IsOpened = _skinnedMeshRenderers[0].GetBlendShapeWeight(0) == 100 ? true : false;
         _startOpenState = IsOpened;
 
-        _executer = FindFirstObjectByType<CommandExecuter>();
+        _executer = FindFirstObjectByType<LevelCommandExecuter>();
         _executer.OnLevelReset += ResetTrap;
     }
 
