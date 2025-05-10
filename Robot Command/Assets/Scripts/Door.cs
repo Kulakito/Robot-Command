@@ -7,7 +7,7 @@ public class Door : MonoBehaviour
 
     [field: SerializeField] public float DoorOpenTime = 1;
 
-    public bool DoorIsOpen {  get; private set; } = false;
+    public bool DoorIsOpen { get; private set; } = false;
 
     private LevelCommandExecuter _commandExecuter;
 

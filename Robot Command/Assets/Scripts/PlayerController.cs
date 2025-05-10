@@ -34,47 +34,12 @@ public class PlayerController : MonoBehaviour
         _warningManager = FindFirstObjectByType<WarningManager>();
 
         _executer.OnLevelReset += ResetPlayer;
-
-        //StartCoroutine(ScaleTransform(Vector3.zero, transform.localScale));
     }
 
     private void OnDisable()
     {
         _executer.OnLevelReset -= ResetPlayer;
     }
-
-    //public IEnumerator MoveForwardCoroutine(string argument)
-    //{
-    //    if (!int.TryParse(argument, out int steps))
-    //    {
-    //        _warningManager.ShowWarning($"Аргумент {argument} не является числом или аргумента вовсе нету.");
-    //        throw new FormatException("Аргумент не является числом или аргумента вовсе нету.");
-    //    }
-
-    //    Vector3 startPosition = _rb.position;
-    //    Vector3 direction = transform.forward.normalized;
-    //    Vector3 targetPosition = startPosition + direction * steps * _cellsDistance;
-
-    //    _animator.SetBool("IsMoving", true);
-
-    //    while (Vector3.Distance(_rb.position, targetPosition) > 0.01f)
-    //    {
-    //        float moveStep = (_cellsDistance / _cellPassingDuration) * Time.fixedDeltaTime;
-    //        Vector3 newPosition = Vector3.MoveTowards(_rb.position, targetPosition, moveStep);
-    //        _rb.MovePosition(newPosition);
-
-    //        yield return new WaitForFixedUpdate();
-    //    }
-
-    //    _rb.MovePosition(targetPosition);
-
-    //    _animator.SetBool("IsMoving", false);
-
-    //    if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit))
-    //    {
-    //        if (hit.collider.CompareTag("End")) StartCoroutine(ScaleTransform(transform.localScale, Vector3.zero));
-    //    }
-    //}
 
     public IEnumerator MoveForwardCoroutine(string argument)
     {
@@ -102,7 +67,8 @@ public class PlayerController : MonoBehaviour
                     throw new FormatException("Персонаж не может идти в стену");
                 }
             }
-            while (Vector3.Distance(_rb.position, targetPosition) > 0.01f)
+            
+            while (Vector3.Distance(_rb.position, new Vector3(targetPosition.x, _rb.position.y, targetPosition.z)) > 0.01f)
             {
                 float moveStep = _cellsDistance / _cellPassingDuration * Time.fixedDeltaTime;
                 Vector3 newPosition = Vector3.MoveTowards(_rb.position, targetPosition, moveStep);
@@ -110,7 +76,16 @@ public class PlayerController : MonoBehaviour
 
                 yield return new WaitForFixedUpdate();
             }
-            _rb.MovePosition(targetPosition);
+            _rb.MovePosition(new Vector3(targetPosition.x, _rb.position.y, targetPosition.z));
+
+            if (Physics.Raycast(transform.position, -transform.up, out hitt))
+            {
+                if (hitt.collider.TryGetComponent(out Trap trap) && trap.IsOpened)
+                {
+                    hitt.collider.isTrigger = true;
+                    _executer.StopAllCoroutines();
+                }
+            }
         }
 
         _animator.SetBool("IsMoving", false);
