@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class CommandExecuter : MonoBehaviour
 {
     [SerializeField] private TMP_InputField _inputField;
-    [SerializeField] private Button _executeButton;
+    [SerializeField] private UnityEngine.UI.Button _executeButton;
 
     private Queue<IEnumerator> _commandQueue = new Queue<IEnumerator>();
 
