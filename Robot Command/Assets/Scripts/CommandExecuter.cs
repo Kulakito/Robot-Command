@@ -14,11 +14,14 @@ public class CommandExecuter : MonoBehaviour
 
     private PlayerController _player;
 
+    private WarningManager _warningManager;
+
     public event Action OnLevelReset;
 
     private void Start()
     {
         _player = FindFirstObjectByType<PlayerController>();
+        _warningManager = FindFirstObjectByType<WarningManager>();
     }
 
     public void ExecuteCommands()
@@ -37,6 +40,7 @@ public class CommandExecuter : MonoBehaviour
             catch (Exception e)
             {
                 Debug.LogError($"Ошибка в команде \"{line}\": {e.Message}");
+                _warningManager.ShowWarning($"Ошибка в команде \"{line}\": {e.Message}");
             }
         }
 
@@ -63,17 +67,24 @@ public class CommandExecuter : MonoBehaviour
         int closeParen = commandLine.IndexOf(')');
 
         if (openParen == -1 || closeParen == -1 || closeParen <= openParen)
+        {
             throw new FormatException("Скобки не найдены или имеют неправильный порядок.");
-
+        }
+        
         string commandName = commandLine.Substring(0, openParen);
         string argument = commandLine.Substring(openParen + 1, closeParen - openParen - 1);
 
         return commandName switch
         {
             "Forward" => _player.MoveForwardCoroutine(argument),
+            "Fd" => _player.MoveForwardCoroutine(argument),
             "TurnLeft" => _player.TurnCoroutine(argument, false),
             "TurnRight" => _player.TurnCoroutine(argument, true),
+            "Lt" => _player.TurnCoroutine(argument, false),
+            "Rt" => _player.TurnCoroutine(argument, true),
             "PickUp" => _player.PickUpCoroutine(),
+            "Put" => _player.PutCoroutine(argument),
+            "Use" => _player.UseCoroutine(argument),
             _ => throw new KeyNotFoundException($"Команда {commandName} не найдена.")
         };
     }
@@ -85,8 +96,6 @@ public class CommandExecuter : MonoBehaviour
 
         OnLevelReset?.Invoke();
 
-        _player.transform.position = Vector3.zero;
-        _player.transform.rotation = Quaternion.identity;
-        _player.StopAllCoroutines();
+        StopAllCoroutines();
     }
 }

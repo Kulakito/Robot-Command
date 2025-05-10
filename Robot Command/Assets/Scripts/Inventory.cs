@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Inventory : MonoBehaviour
 {
@@ -56,6 +57,30 @@ public class Inventory : MonoBehaviour
                 return;
             }
         }
+
+        throw new NotImplementedException("Вы пытаетесь добавить предмет в полный инвентарь");
+    }
+
+    public GameItem DropItem(int index)
+    {
+        if (IsSlotEmpty(index)) throw new Exception("Вы пытаетесь выбросить предмет, которого нет"); 
+
+        GameItem item = _items[index];
+
+        _items[index] = null;
+        _slots[index].sprite = null;
+
+        return item;
+    }
+
+    public bool IsSlotEmpty(int index)
+    {
+        return _items[index] == null;
+    }
+
+    public GameItem[] GetItems()
+    {
+        return _items;
     }
 
     private void ResetInventory()
