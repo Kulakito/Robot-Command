@@ -37,7 +37,7 @@ public abstract class CommandExecuter : MonoBehaviour
         if (_commandQueue.Count > 0)
         {
             _inputField.interactable = false;
-            _executeButton.interactable = false;
+            _executeButton = false;
         }
 
         StartCoroutine(RunCommandQueue());  
