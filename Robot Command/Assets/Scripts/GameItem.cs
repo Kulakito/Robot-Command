@@ -6,7 +6,7 @@ public class GameItem : MonoBehaviour
 
     [field: SerializeField] public Sprite ItemSprite { get; private set; }
 
-    private CommandExecuter _executer;
+    private LevelCommandExecuter _executer;
 
     private void Awake()
     {
@@ -15,7 +15,7 @@ public class GameItem : MonoBehaviour
 
     private void Start()
     {
-        _executer = FindFirstObjectByType<CommandExecuter>();
+        _executer = FindFirstObjectByType<LevelCommandExecuter>();
         _executer.OnLevelReset += ResetPosition;
     }
 

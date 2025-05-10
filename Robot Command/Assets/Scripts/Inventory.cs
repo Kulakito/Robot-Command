@@ -11,7 +11,7 @@ public class Inventory : MonoBehaviour
 
     private RectTransform _inventoryPanel;
 
-    private CommandExecuter _executer;
+    private LevelCommandExecuter _executer;
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        _executer = FindFirstObjectByType<CommandExecuter>();
+        _executer = FindFirstObjectByType<LevelCommandExecuter>();
         _executer.OnLevelReset += ResetInventory;
     }
 
