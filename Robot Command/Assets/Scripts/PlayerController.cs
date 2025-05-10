@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private Animator _animator;
 
-    private CommandExecuter _executer;
+    private LevelCommandExecuter _executer;
 
     [SerializeField] private AnimationCurve _scaleCurve;
 
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
         _inventory = FindFirstObjectByType<Inventory>();
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
-        _executer = FindFirstObjectByType<CommandExecuter>();
+        _executer = FindFirstObjectByType<LevelCommandExecuter>();
         _warningManager = FindFirstObjectByType<WarningManager>();
 
         _executer.OnLevelReset += ResetPlayer;

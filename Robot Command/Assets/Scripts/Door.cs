@@ -9,11 +9,11 @@ public class Door : MonoBehaviour
 
     public bool DoorIsOpen { get; private set; } = false;
 
-    private CommandExecuter _commandExecuter;
+    private LevelCommandExecuter _commandExecuter;
 
     private void Start()
     {
-        _commandExecuter = FindFirstObjectByType<CommandExecuter>();
+        _commandExecuter = FindFirstObjectByType<LevelCommandExecuter>();
 
         _commandExecuter.OnLevelReset += ResetDoor;
     }
