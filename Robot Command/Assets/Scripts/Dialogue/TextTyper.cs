@@ -8,9 +8,9 @@ public static class TextTyper
     public static IEnumerator TypeText(string te, TMP_Text tmp, float interval = .1f)
     {
         isTyping = true;
-        foreach (char c in te)
+        for (int i = 0; i < te.Length; i++)
         {
-            tmp.text += c;
+            tmp.text += te[i];
             yield return new WaitForSeconds(interval);
         }
         isTyping = false;
