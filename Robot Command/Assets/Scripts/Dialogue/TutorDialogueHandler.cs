@@ -6,16 +6,16 @@ using TMPro;
 
 public class TutorDialogueHandler : MonoBehaviour
 {
-    [SerializeField] DialogueMessage[] messages;
+    [SerializeField] protected DialogueMessage[] messages;
     [SerializeField] bool activateOnStart = true;
 
-    [SerializeField] TMP_Text te;
-    [SerializeField] GameObject panel;
-    [SerializeField] Image charImage;
+    [SerializeField] protected TMP_Text te;
+    [SerializeField] protected GameObject panel;
+    [SerializeField] protected Image charImage;
 
     //bool isActiveDialogue = false;
 
-    void Start()
+    protected virtual void Start()
     {
         if (PlayerPrefs.GetInt($"TutorOnScene{SceneManager.GetActiveScene().buildIndex}Viewed") == 0 && activateOnStart)
         {
@@ -29,7 +29,7 @@ public class TutorDialogueHandler : MonoBehaviour
         StartCoroutine(ActivateDialogue());
     }
 
-    IEnumerator ActivateDialogue()
+    protected virtual IEnumerator ActivateDialogue()
     {
         panel.SetActive(true);
         //isActiveDialogue = true;
