@@ -13,11 +13,15 @@ public class Door : MonoBehaviour
 
     [SerializeField] private GameItem _rightKey;
 
+    private AudioSource _audioSource;
+
     private void Start()
     {
         _commandExecuter = FindFirstObjectByType<LevelCommandExecuter>();
 
         _commandExecuter.OnLevelReset += ResetDoor;
+
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnDisable()
@@ -28,6 +32,7 @@ public class Door : MonoBehaviour
     public void OpenDoor()
     {
         StartCoroutine(DoorOpeningCoroutine());
+        _audioSource.Play();
     }
 
     private IEnumerator DoorOpeningCoroutine()
@@ -45,6 +50,7 @@ public class Door : MonoBehaviour
         }
 
         DoorIsOpen = true;
+        _audioSource.Stop();
     }
 
     private void ResetDoor()

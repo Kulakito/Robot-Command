@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem.XR;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
@@ -25,8 +26,17 @@ public class PlayerController : MonoBehaviour
 
     private WarningManager _warningManager;
 
+    private AudioSource _audioSource;
+
+    [SerializeField] private AudioClip _stepSound;
+    [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
+
+    [SerializeField] private AudioClip _tubeFallingSound;
+    [SerializeField] private AudioClip _itemSound;
+
     private void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         _inventory = FindFirstObjectByType<Inventory>();
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
@@ -92,7 +102,11 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit))
         {
-            if (hit.collider.CompareTag("End")) StartCoroutine(ScaleTransform(transform.localScale, Vector3.zero));
+            if (hit.collider.CompareTag("End"))
+            {
+                StartCoroutine(ScaleTransform(transform.localScale, Vector3.zero));
+                _audioSource.PlayOneShot(_tubeFallingSound);
+            }
         }
     }
 
@@ -143,6 +157,8 @@ public class PlayerController : MonoBehaviour
             {
                 _inventory.AddItem(gameItem);
             }
+
+            _audioSource.PlayOneShot(_itemSound);
         }
         else
         {
@@ -280,5 +296,10 @@ public class PlayerController : MonoBehaviour
         }
 
         if (endScale == Vector3.zero) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);    
+    }
+
+    public void OnFootStep()
+    {
+        AudioSource.PlayClipAtPoint(_stepSound, transform.position, FootstepAudioVolume);
     }
 }
