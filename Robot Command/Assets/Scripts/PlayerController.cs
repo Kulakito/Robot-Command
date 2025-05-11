@@ -211,10 +211,18 @@ public class PlayerController : MonoBehaviour
 
             if (_inventory.GetItems()[index].CompareTag("Key") && hit.collider.TryGetComponent(out Door door))
             {
-                door.OpenDoor();
-                _inventory.DropItem(index);
+                if (door.CompareKeys(_inventory.GetItems()[index]))
+                {
+                    door.OpenDoor();
+                    _inventory.DropItem(index);
 
-                yield return new WaitForSeconds(door.DoorOpenTime + 0.5f);
+                    yield return new WaitForSeconds(door.DoorOpenTime + 0.5f);
+                }
+                else
+                {
+                    _warningManager.ShowWarning("Ключ не подходит двери по цвету");
+                    throw new Exception("Ключ не подходит двери по цвету");
+                }
             }
             else
             {
