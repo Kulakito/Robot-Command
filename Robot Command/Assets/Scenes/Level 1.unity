@@ -836,13 +836,32 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1107902342413405220, guid: e165c76a97886b24a900609c587bf1b1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 360
+    - target: {fileID: 398104506331624708, guid: e165c76a97886b24a900609c587bf1b1, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1107902342413405220, guid: e165c76a97886b24a900609c587bf1b1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 540
+    - target: {fileID: 2760733162593296097, guid: e165c76a97886b24a900609c587bf1b1, type: 3}
+      propertyPath: messages.Array.data[0].text
+      value: "\u041F\u0440\u0438\u0432\u0435\u0442\u0438\u043A!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760733162593296097, guid: e165c76a97886b24a900609c587bf1b1, type: 3}
+      propertyPath: messages.Array.data[1].text
+      value: "\u041C\u0435\u043D\u044F \u0437\u043E\u0432\u0443\u0442 W1 \u0438 \u043C\u043D\u0435
+        \u0445\u043E\u0442\u0435\u043B\u043E\u0441\u044C \u0431\u044B \u0434\u043E\u0431\u0440\u0430\u0442\u044C\u0441\u044F
+        \u0434\u043E \u0442\u043E\u0439 \u0442\u0440\u0443\u0431\u044B, \u043F\u043E\u043C\u043E\u0436\u0435\u0448\u044C
+        \u043C\u043D\u0435 \u0441 \u044D\u0442\u0438\u043C?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760733162593296097, guid: e165c76a97886b24a900609c587bf1b1, type: 3}
+      propertyPath: messages.Array.data[2].text
+      value: "\u041A\u043E\u043C\u0430\u043D\u0434\u0430 Fd(n) \u043F\u043E\u0434\u0432\u0438\u043D\u0435\u0442
+        \u043C\u0435\u043D\u044F \u0432\u043F\u0435\u0440\u0451\u0434 \u043D\u0430
+        n \u043A\u043B\u0435\u0442\u043E\u043A."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760733162593296097, guid: e165c76a97886b24a900609c587bf1b1, type: 3}
+      propertyPath: messages.Array.data[3].text
+      value: "\u041D\u0430\u043F\u0438\u0448\u0438 \u044D\u0442\u0443 \u043A\u043E\u043C\u0430\u043D\u0434\u0443
+        \u0432 \u043E\u043A\u043D\u043E \u0432 \u0443\u0433\u043B\u0443, \u0447\u0442\u043E\u0431\u044B
+        \u044F \u0435\u0451 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B."
       objectReference: {fileID: 0}
     - target: {fileID: 7179171428731201802, guid: e165c76a97886b24a900609c587bf1b1, type: 3}
       propertyPath: m_Pivot.x
@@ -922,6 +941,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7179171428731201802, guid: e165c76a97886b24a900609c587bf1b1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121606507165733293, guid: e165c76a97886b24a900609c587bf1b1, type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8219646220928954955, guid: e165c76a97886b24a900609c587bf1b1, type: 3}
@@ -1293,7 +1316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b966d7559810449bedcf17207ab444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aaa: {fileID: 557260861}
 --- !u!114 &2048255161
 MonoBehaviour:
   m_ObjectHideFlags: 0
