@@ -8,6 +8,36 @@ using UnityEngine.UI;
 
 public class MenuCommandExecuter : CommandExecuter
 {
+    Animator anim;
+
+    private void Start()
+    {
+        anim = Camera.main.GetComponent<Animator>();
+    }
+
+    public override void ExecuteCommands()
+    {
+        _commandQueue.Clear();
+
+        string[] lines = _inputField.text.Split(new[] { '\n', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (string line in lines)
+        {
+            try
+            {
+                IEnumerator coroutine = ParseCommand(line.Trim());
+                if (coroutine != null) _commandQueue.Enqueue(coroutine);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Ошибка в команде \"{line}\": {e.Message}");
+                _warningManager.ShowWarning($"Ошибка в команде \"{line}\": {e.Message}");
+            }
+        }
+
+        StartCoroutine(RunCommandQueue());
+    }
+
     protected override IEnumerator ParseCommand(string commandLine)
     {
         int openParen = commandLine.IndexOf('(');
@@ -24,6 +54,7 @@ public class MenuCommandExecuter : CommandExecuter
         return commandName switch
         {
             "Play" => StartPlaying(),
+            "Credits" => ShowCredits(),
             _ => throw new KeyNotFoundException($"Команда {commandName} не найдена.")
         };
     }
@@ -31,6 +62,12 @@ public class MenuCommandExecuter : CommandExecuter
     public IEnumerator StartPlaying()
     {
         SceneManager.LoadScene(1);
+        yield return null;
+    }
+
+    public IEnumerator ShowCredits()
+    {
+        anim.SetBool("active", !anim.GetBool("active"));
         yield return null;
     }
 }

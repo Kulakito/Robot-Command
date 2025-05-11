@@ -13,7 +13,7 @@ public abstract class CommandExecuter : MonoBehaviour
 
     protected WarningManager _warningManager;
 
-    public void ExecuteCommands()
+    public virtual void ExecuteCommands()
     {
         _commandQueue.Clear();
 
