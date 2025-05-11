@@ -11,6 +11,8 @@ public class Door : MonoBehaviour
 
     private LevelCommandExecuter _commandExecuter;
 
+    [SerializeField] private GameItem _rightKey;
+
     private void Start()
     {
         _commandExecuter = FindFirstObjectByType<LevelCommandExecuter>();
@@ -51,5 +53,10 @@ public class Door : MonoBehaviour
         {
             renderer.SetBlendShapeWeight(0, 0);
         }
+    }
+
+    public bool CompareKeys(GameItem key)
+    {
+        return _rightKey == key;
     }
 }
