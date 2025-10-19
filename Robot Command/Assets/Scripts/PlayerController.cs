@@ -122,7 +122,8 @@ public class PlayerController : MonoBehaviour
         float totalAngle = 90f * steps * (isRight ? 1 : -1);
 
         Quaternion startRotation = transform.rotation;
-        Quaternion targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + totalAngle, 0);
+        Quaternion targetRotation = startRotation * Quaternion.Euler(0, totalAngle, 0);
+        //Quaternion targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + totalAngle, 0);
 
         float elapsed = 0f;
 

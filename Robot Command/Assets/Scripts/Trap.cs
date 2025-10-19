@@ -31,41 +31,30 @@ public class Trap : Interactable
     {
         StopAllCoroutines();
 
-        if (!IsOpened) StartCoroutine(TrapOpeningCoroutine());
-        else StartCoroutine(TrapClosingCoroutine());
+        StartCoroutine(TrapBlendShapeCoroutine());
     }
 
-    private IEnumerator TrapOpeningCoroutine()
+    private IEnumerator TrapBlendShapeCoroutine()
     {
-        IsOpened = true;
+        IsOpened = !IsOpened;
 
-        float t = 0f;
+        float t = IsOpened ? 0f : _trapOpenTime;
+        float direction = IsOpened ? 1f : -1f;
 
-        while (t < _trapOpenTime)
+        while ((IsOpened && t < _trapOpenTime) || (!IsOpened && t > 0f))
         {
             foreach (var renderer in _skinnedMeshRenderers)
             {
                 renderer.SetBlendShapeWeight(0, t / _trapOpenTime * 100);
             }
-            t += Time.deltaTime;
+            t += direction * Time.deltaTime;
             yield return null;
         }
-    }
 
-    private IEnumerator TrapClosingCoroutine()
-    {
-        IsOpened = false;
-
-        float t = _trapOpenTime;
-
-        while (t > 0)
+        float finalWeight = IsOpened ? 100f : 0f;
+        foreach (var renderer in _skinnedMeshRenderers)
         {
-            foreach (var renderer in _skinnedMeshRenderers)
-            {
-                renderer.SetBlendShapeWeight(0, t / _trapOpenTime * 100);
-            }
-            t -= Time.deltaTime;
-            yield return null;
+            renderer.SetBlendShapeWeight(0, finalWeight);
         }
     }
 
